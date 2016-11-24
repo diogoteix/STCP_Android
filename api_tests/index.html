@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </head>
+<body>
+
+<h1>What Can JavaScript Do?</h1>
+
+<p id="demo">JavaScript can change HTML content.</p>
+
+<button type="button" onclick="document.getElementById('demo').innerHTML = 'Hello JavaScript!'">Click Me!</button>
+
+<div class="22300-1271">
+    <h2>902</h2>
+</div>
+<div class="22300-1274">
+    <h2>903</h2>
+</div>
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+            var flags = [];
+            var d = new Date();
+            var t = msToTime(d.getTime());
+
+    $(document).ready(function () {
+        getStops(1271, 22300);
+        getStops(1274, 22300);
+    });
+
+    function getStops(route, stop) {
+        $.get( "https://api.ost.pt/stoptimes/?time=15%3A35&range=1&route=" + route + "&agency=22&key=KlFZynGEwtziLMJGXTeiPnRtIbhRqsfwFblZpRwm", function( data ) {
+            for( var i in data.Objects.sort(compare)) {
+                if(data.Objects[i].stop_id == stop && data.Objects[i].stop_sequence == 1 && data.Objects[i].arrival_times[0] >= t) {
+                    var div = document.createElement('div');
+                    div.id = data.Objects[i].id;
+                    div.className = data.Objects[i].stop_id;
+                    div.append(data.Objects[i].stop_id + ' - ' + data.Objects[i].arrival_times[0] + ' - ');
+                    $('.'+stop+'-'+route).append(div);
+                    if(!flags[data.Objects[i].stop_id]) {
+                        flags[data.Objects[i].stop_id] = true;
+                        $.get( "https://api.ost.pt/stops/" + data.Objects[i].stop_id + "/?key=KlFZynGEwtziLMJGXTeiPnRtIbhRqsfwFblZpRwm", function( data2 ) {
+                            $('.' + data2.id).append(data2.stop_name + '<br />');
+                        });
+                    }
+                }
+            }
+            console.log(data);
+        });
+    }
+
+    function compare(a,b) {
+        if (a.arrival_times[0] < b.arrival_times[0])
+            return -1;
+        if (a.arrival_times[0] > b.arrival_times[0])
+            return 1;
+        return 0;
+    }
+
+    function msToTime(duration) {
+        var milliseconds = parseInt((duration%1000)/100)
+            , seconds = parseInt((duration/1000)%60)
+            , minutes = parseInt((duration/(1000*60))%60)
+            , hours = parseInt((duration/(1000*60*60))%24);
+
+        hours = (hours < 10) ? "0" + hours : hours;
+        minutes = (minutes < 10) ? "0" + minutes : minutes;
+        seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+        return hours + ":" + minutes + ":" + seconds;
+    }
+</script>
