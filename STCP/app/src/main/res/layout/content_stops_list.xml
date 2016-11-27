@@ -14,7 +14,18 @@
     tools:showIn="@layout/activity_stops_list">
 
     <TextView
+        android:id="@+id/stopsList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:text="Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_below="@+id/stopsList"
+        android:layout_toEndOf="@+id/stopsList"
+        android:layout_marginStart="119dp"
+        android:layout_marginTop="109dp"
+        android:id="@+id/button"
+        android:onClick="getStops" />
 </RelativeLayout>
