@@ -10,4 +10,9 @@ public class StopDto {
     public long id;
     public String stopName;
     public List<RouteDto> routes;
+
+    @Override
+    public String toString() {
+        return id + " - " + stopName;
+    }
 }

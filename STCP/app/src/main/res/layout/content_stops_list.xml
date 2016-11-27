@@ -13,19 +13,27 @@
     tools:context="com.teixeira.diogo.stcp.StopsList"
     tools:showIn="@layout/activity_stops_list">
 
-    <TextView
-        android:id="@+id/stopsList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/spinner" />
 
     <Button
         android:text="Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/stopsList"
-        android:layout_toEndOf="@+id/stopsList"
-        android:layout_marginStart="119dp"
-        android:layout_marginTop="109dp"
         android:id="@+id/button"
-        android:onClick="getStops" />
+        android:onClick="getStops"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="41dp"
+        android:id="@+id/stopsListTextView" />
 </RelativeLayout>
